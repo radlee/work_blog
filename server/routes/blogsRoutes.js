@@ -21,9 +21,9 @@ router.post('/add-blog', authMiddleware, async (req, res) => {
 });
 
 //Get all blogs
-router.post('/get-all-blogs', async (req, res) => {
+router.get('/get-all-blogs', async (req, res) => {
     try {
-        const blogs = await Blog.find();
+        const blogs = await Blog.find().populate('user');
         res.send({
             message: 'Blogs fetched with success',
             data: blogs,
@@ -38,7 +38,7 @@ router.post('/get-all-blogs', async (req, res) => {
 });
 
 //Get blog by id
-router.post('/get-blog-by-id/:id', async (req, res) => {
+router.get('/get-blog-by-id/:id', async (req, res) => {
     try {
         const blog = await Blog.findById(req.params.id);
         res.send({
